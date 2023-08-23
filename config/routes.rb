@@ -2,9 +2,11 @@
 
 Rails.application.routes.draw do
   namespace :api do
-    resources :reservations do
-      collection do
-        post :upsert
+    namespace :v1 do
+      resources :reservations do
+        collection do
+          post :upsert
+        end
       end
     end
   end

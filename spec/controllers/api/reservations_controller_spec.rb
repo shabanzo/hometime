@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 # Integration Test
-RSpec.describe Api::ReservationsController, type: :controller do
+RSpec.describe Api::V1::ReservationsController, type: :controller do
   describe 'POST #upsert' do
     before do
       post :upsert, params: payload
