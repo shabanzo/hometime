@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# Unit Test
 RSpec.describe Reservations::Update, type: :service do
   subject(:service) { described_class.new }
 
