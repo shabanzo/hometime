@@ -15,7 +15,7 @@ RSpec.describe Guest, type: :model do
   end
 
   it 'is invalid with a duplicate email' do
-    existing_guest = create(:guest, email: 'test@example.com')
+    create(:guest, email: 'test@example.com')
     guest = described_class.new(email: 'test@example.com')
     expect(guest).to be_invalid
     expect(guest.errors[:email]).to include('has already been taken')
