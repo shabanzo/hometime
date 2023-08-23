@@ -3,6 +3,7 @@
 # Class object for Reservation
 class Reservation < ApplicationRecord
   belongs_to :guest
+  accepts_nested_attributes_for :guest
 
   enum statuses: %w[pending accepted cancelled completed].freeze
 
