@@ -3,9 +3,21 @@
 require 'rails_helper'
 
 RSpec.describe Guest, type: :model do
-  describe 'validations' do
-    subject { build(:guest) }
+  it 'is valid with a valid email' do
+    guest = described_class.new(email: 'test@example.com')
+    expect(guest).to be_valid
+  end
 
-    it { is_expected.to validate_uniqueness_of(:email) }
+  it 'is invalid with an invalid email' do
+    guest = described_class.new(email: 'invalid-email')
+    expect(guest).to be_invalid
+    expect(guest.errors[:email]).to include('is invalid')
+  end
+
+  it 'is invalid with a duplicate email' do
+    existing_guest = create(:guest, email: 'test@example.com')
+    guest = described_class.new(email: 'test@example.com')
+    expect(guest).to be_invalid
+    expect(guest.errors[:email]).to include('has already been taken')
   end
 end
