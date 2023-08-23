@@ -3,6 +3,9 @@ require:
   - rubocop-rails
   - rubocop-performance
 
+RSpec/MultipleExpectations:
+  Max: 5
+
 Style/FrozenStringLiteralComment:
   Enabled: true
 
