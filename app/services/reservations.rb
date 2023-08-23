@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # This module for namespacing reservation-related services
-# And to store common methods that will be reused
+# And to store common methods related to Reservation that will be reused
 module Reservations
   def find_reservation(code)
     reservation = Reservation.find_by(code: code)
