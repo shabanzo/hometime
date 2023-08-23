@@ -8,7 +8,7 @@ A simple API-based application to store reservation request from multiple-channe
 2. [Testing](https://github.com/shabanzo/hometime/blob/main/README.md#testing)
 3. [Assumptions](https://github.com/shabanzo/hometime/blob/main/README.md#assumptions)
 4. [API Documentation](https://github.com/shabanzo/hometime/blob/main/README.md#api-documentation)
-   - [Reservation API](https://github.com/shabanzo/hometime/blob/main/README.md#reservations-upsert-api)
+   - [Reservation - Upsert API](https://github.com/shabanzo/hometime/blob/main/README.md#reservation-upsert-api)
 
 ## Getting Started
 
@@ -46,7 +46,7 @@ rspec
 
 ## API Documentation
 
-### Reservations - Upsert API
+### Reservation - Upsert API
 
 API for upserting (updating or inserting) reservation data with these requirements:
 
@@ -54,11 +54,6 @@ API for upserting (updating or inserting) reservation data with these requiremen
 2. Parse and save the payloads to a Reservation model that belongs to a Guest
 3. Can accept changes to the reservation and the guest (An improvement from my end 😄)
 4. Rollback changes when the updating guest fails
-
-#### How to add a new channel?
-
-1. Add a new identifier on [::Reservations::Payload::Identifier](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/payload/identifier.rb)
-2. Create a new converter under [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter) because it's using [Factory Method (Design Pattern)](https://refactoring.guru/design-patterns/factory-method).
 
 #### Endpoint
 
@@ -130,3 +125,19 @@ POST /api/v1/reservations/upsert
 | ---------- | ------------------------------------------------------------------------- |
 | 501        | The payload can't be identified                                           |
 | 422        | Unprocessable content - the details will be provided in the error message |
+
+#### Code structure
+
+1. [Reservation Controller](https://github.com/shabanzo/hometime/blob/main/app/controllers/api/v1/reservations_controller.rb#L8-L20)
+2. [::Reservations::Upsert](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/upsert.rb)
+3. [::Reservations::Payload::Identifier](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/payload/identifier.rb)
+4. [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter) - [Here](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/upsert.rb#L31-L35) using [Factory Method (Design Pattern)](https://refactoring.guru/design-patterns/factory-method)
+   a. [::Reservations::Payload::Converter::Airbnb](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter/airbnb) - To convert Airbnb payload to a standardized structure
+   b. [::Reservations::Payload::Converter::Airbnb](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter/bookingcom) - To convert Bookingcom payload to a standardized structure
+5. [::Reservations::Update](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/update.rb) - To update the reservation and the guest. And it's using `Dry::Transactions` so it will rollback if one of the process failed. For example, if the updating guest fails, the reservation changes will be rollback.
+6. [::Reservations module](https://github.com/shabanzo/hometime/blob/main/app/services/reservations.rb) - To store common methods that probably will be reused. And for namespacing based on it's domain, specifically for this case: Reservations.
+
+#### How to add a new channel?
+
+1. Add a new identifier on [::Reservations::Payload::Identifier](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/payload/identifier.rb)
+2. Create a new converter under [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter)
