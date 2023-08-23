@@ -7,6 +7,7 @@ RSpec.describe Reservations::Update, type: :service do
   subject(:service) { described_class.new }
 
   let(:reservation) { create(:reservation) }
+  let(:second_reservation) { create(:reservation) }
   let(:guest) { create(:guest) }
 
   context 'when updating a reservation and guest' do
@@ -26,6 +27,26 @@ RSpec.describe Reservations::Update, type: :service do
       expect(result).to be_success
       expect(result.success).to eq(reservation.reload)
       expect(reservation.reload.guest.first_name).to eq('Updated')
+    end
+  end
+
+  context 'when updating reservation fails' do
+    let(:payload) do
+      {
+        code:             second_reservation.code,
+        guests:           5,
+        guest_attributes: {
+          first_name: 'Updated',
+          last_name:  'Guest'
+        }
+      }
+    end
+
+    it 'returns a failure result' do
+      result = service.call(reservation: reservation, payload: payload)
+
+      expect(result).to be_failure
+      expect(result.failure[:status]).to eq(:unprocessable_entity)
     end
   end
 
