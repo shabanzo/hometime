@@ -2,7 +2,7 @@
 
 module Reservations
   module Payload
-    # The service class for identifying the payload
+    # The service class for identifying the payload and return the identity of the payload
     class Identifier < Base
       def call(payload:)
         service_klass = yield identify_payload(payload)
