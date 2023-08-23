@@ -142,3 +142,4 @@ POST /api/v1/reservations/upsert
     - [::Reservations::Payload::Converter::Bookingcom](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter/bookingcom) - Converts Bookingcom payload to a standardized structure.
 2. [::Reservations::Update](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/update.rb) - Updates reservations and guests using Dry::Transactions. The transaction rolls back if any step fails, ensuring data consistency.
 3. Modules, for example: [::Reservations module](https://github.com/shabanzo/hometime/blob/main/app/services/reservations.rb) - Help organize common methods and namespace services based on their domain, such as Reservations.
+4. `Dry::Monads` for handling response properly.
