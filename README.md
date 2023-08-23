@@ -67,7 +67,7 @@ POST /api/v1/reservations/upsert
 
 #### Payload example:
 
-```
+```json
 {
   "reservation_code": "YYY12345678",
   "start_date": "2021-04-14",
@@ -95,25 +95,25 @@ POST /api/v1/reservations/upsert
 
 ```json
 {
-  'adults'         => 2,
-  'children'       => 2,
-  'code'           => 'YYY12345678',
-  'currency'       => 'AUD',
-  'end_date'       => '2021-04-18',
-  'guest'          => {
-    'email'      => 'wayne_woodbridge@bnb.com',
-    'first_name' => 'Wayne',
-    'last_name'  => 'Woodbridge',
-    'phone'      => '639123456789'
+  "adults": 2,
+  "children": 2,
+  "code": "YYY12345678",
+  "currency": "AUD",
+  "end_date": "2021-04-18",
+  "guest": {
+    "email": "wayne_woodbridge@bnb.com",
+    "first_name": "Wayne",
+    "last_name": "Woodbridge",
+    "phone": "639123456789"
   },
-  'guests'         => 4,
-  'infants'        => 0,
-  'nights'         => 4,
-  'payout_price'   => '4200.00',
-  'security_price' => '500',
-  'start_date'     => '2021-04-14',
-  'status'         => 'accepted',
-  'total_price'    => '4700.00'
+  "guests": 4,
+  "infants": 0,
+  "nights": 4,
+  "payout_price": "4200.00",
+  "security_price": "500",
+  "start_date": "2021-04-14",
+  "status": "accepted",
+  "total_price": "4700.00"
 }
 ```
 
