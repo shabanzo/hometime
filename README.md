@@ -12,7 +12,7 @@ A simple API-based application to store reservation request from multiple-channe
 
 ## Getting Started
 
-1. Ensure you have installed Ruby in your machine, specifically for this application we're using Ruby v.3.2.2
+1. Ensure you have installed Ruby on your machine, specifically for this application we're using Ruby v.3.2.2
 2. Setup the application environment by executing this command:
 
 ```
@@ -40,24 +40,25 @@ rspec
 
 ## Assumptions
 
-1. Payload #1 as AirBNB payload
+1. Payload #1 as Airbnb payload
 2. Payload #2 as Bookingcom payload
+3. Airbnb and Bookingcom as our channels
 
 ## API Documentation
 
 ### Reservations - Upsert API
 
-API for upserting (updating or inserting) a reservation data with this requirements:
+API for upserting (updating or inserting) reservation data with these requirements:
 
-1. Can accept two kinds of payload formats: AirBNB and Bookingcom
+1. Can accept two kinds of payload formats: Airbnb and Bookingcom
 2. Parse and save the payloads to a Reservation model that belongs to a Guest
-3. Can accept changes to the reservation and the guest
+3. Can accept changes to the reservation and the guest (An improvement from my end 😄)
 4. Rollback changes when the updating guest fails
 
 #### How to add a new channel?
 
 1. Add a new identifier on [::Reservations::Payload::Identifier](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/payload/identifier.rb)
-2. Create a new converter under [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter) because it's using Factory Method (Design Pattern).
+2. Create a new converter under [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter) because it's using [Factory Method (Design Pattern)](https://refactoring.guru/design-patterns/factory-method).
 
 #### Endpoint
 
