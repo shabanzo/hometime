@@ -1,6 +1,6 @@
 # Hometime API
 
-A simple API-based application to store reservation request from multiple-channels/clients.
+This is a simple API application designed to handle reservation requests from various channels and clients.
 
 ## Contents
 
@@ -15,14 +15,14 @@ A simple API-based application to store reservation request from multiple-channe
 
 ## Getting Started
 
-1. Ensure you have installed Ruby on your machine, specifically for this application we're using Ruby v.3.2.2
-2. Setup the application environment by executing this command:
+1. Make sure you have Ruby (v3.2.2) installed on your machine.
+2. Set up the application environment with the following command:
 
 ```
 bin/setup
 ```
 
-3. The application is ready to run by executing this command:
+3. Run the application using:
 
 ```
 rails s
@@ -30,7 +30,7 @@ rails s
 
 ## Testing
 
-Simply execute this command:
+Run tests with:
 
 ```
 rspec
@@ -38,25 +38,26 @@ rspec
 
 ### Test Category
 
-1. Unit Test - For services and models - Testing contexts under the services
-2. Integration Test - For controllers - Testing end-to-end process from controller to model
+1. Unit Test: For services and models, testing different contexts within the services.
+2. Integration Test: For controllers, testing the end-to-end process from the controller to the model.
 
 ## Assumptions
 
-1. Payload #1 as Airbnb payload
-2. Payload #2 as Bookingcom payload
-3. Airbnb and Bookingcom as our channels
+1. Payload #1 corresponds to Airbnb payload.
+2. Payload #2 corresponds to Bookingcom payload.
+3. Airbnb and Bookingcom are considered as channels.
+4. Guest details will be updated if there are any changes.
 
 ## API Documentation
 
 ### Reservation - Upsert API
 
-API for upserting (updating or inserting) reservation data with these requirements:
+This API allows you to update or insert reservation data, considering the following requirements:
 
-1. Can accept two kinds of payload formats: Airbnb and Bookingcom
-2. Parse and save the payloads to a Reservation model that belongs to a Guest
-3. Can accept changes to the reservation and the guest (An improvement from my end 😄)
-4. Rollback changes when the updating guest fails
+1. Accepts two types of payload formats: Airbnb and Bookingcom.
+2. Parses and saves payloads to a Reservation model linked to a Guest.
+3. Supports changes to both reservation and guest details.
+4. Rolls back changes if updating the guest fails.
 
 #### Endpoint
 
@@ -131,13 +132,13 @@ POST /api/v1/reservations/upsert
 
 ## How to add a new channel?
 
-1. Add a new identifier on [::Reservations::Payload::Identifier](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/payload/identifier.rb)
+1. Add a new identifier in [::Reservations::Payload::Identifier](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/payload/identifier.rb)
 2. Create a new converter under [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter)
 
 ## Additional Notes
 
-1. [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter) - [Here](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/upsert.rb#L31-L35) using [Factory Method (Design Pattern)](https://refactoring.guru/design-patterns/factory-method)
-   a. [::Reservations::Payload::Converter::Airbnb](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter/airbnb) - To convert Airbnb payload to a standardized structure
-   b. [::Reservations::Payload::Converter::Airbnb](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter/bookingcom) - To convert Bookingcom payload to a standardized structure
-2. [::Reservations::Update](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/update.rb) - To update the reservation and the guest. And it's using `Dry::Transactions` so it will rollback if one of the process failed. For example, if the updating guest fails, the reservation changes will be rollback.
-3. Modules, for example: [::Reservations module](https://github.com/shabanzo/hometime/blob/main/app/services/reservations.rb) - To store common methods that probably will be reused. And for namespacing based on it's domain, specifically for this case: Reservations, so it's more organized.
+1. [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter) - [Here](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/upsert.rb#L31-L35) utilizing [Factory Method (Design Pattern)](https://refactoring.guru/design-patterns/factory-method)
+    - [::Reservations::Payload::Converter::Airbnb](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter/airbnb) - Converts Airbnb payload to a standardized structure.
+    - [::Reservations::Payload::Converter::Bookingcom](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter/bookingcom) - Converts Bookingcom payload to a standardized structure.
+2. [::Reservations::Update](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/update.rb) - Updates reservations and guests using Dry::Transactions. The transaction rolls back if any step fails, ensuring data consistency.
+3. Modules, for example: [::Reservations module](https://github.com/shabanzo/hometime/blob/main/app/services/reservations.rb) - Help organize common methods and namespace services based on their domain, such as Reservations.
