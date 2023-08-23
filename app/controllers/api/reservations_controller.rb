@@ -13,7 +13,8 @@ module Api
         render json:   serialized_reservation,
                status: :ok
       else
-        render status: upsert.failure
+        render json:   { message: upsert.failure[:errors] },
+               status: upsert.failure[:status]
       end
     end
 

@@ -16,7 +16,10 @@ module Reservations
         elsif payload['reservation_code']
           Success('Airbnb')
         else
-          Failure(:not_implemented)
+          Failure(
+            errors: 'The payload can not be identified!',
+            status: :not_implemented
+          )
         end
       end
     end

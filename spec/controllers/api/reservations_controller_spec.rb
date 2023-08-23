@@ -36,25 +36,25 @@ RSpec.describe Api::ReservationsController, type: :controller do
 
       let(:expected_response) do
         {
-          "adults"         => 2,
-          "children"       => 2,
-          "code"           => "YYY12345678",
-          "currency"       => "AUD",
-          "end_date"       => "2021-04-18",
-          "guest"          => {
-            "email"      => "wayne_woodbridge@bnb.com",
-            "first_name" => "Wayne",
-            "last_name"  => "Woodbridge",
-            "phone"      => "639123456789"
+          'adults'         => 2,
+          'children'       => 2,
+          'code'           => 'YYY12345678',
+          'currency'       => 'AUD',
+          'end_date'       => '2021-04-18',
+          'guest'          => {
+            'email'      => 'wayne_woodbridge@bnb.com',
+            'first_name' => 'Wayne',
+            'last_name'  => 'Woodbridge',
+            'phone'      => '639123456789'
           },
-          "guests"         => 4,
-          "infants"        => 0,
-          "nights"         => 4,
-          "payout_price"   => "4200.00",
-          "security_price" => "500",
-          "start_date"     => "2021-04-14",
-          "status"         => "accepted",
-          "total_price"    => "4700.00"
+          'guests'         => 4,
+          'infants'        => 0,
+          'nights'         => 4,
+          'payout_price'   => '4200.00',
+          'security_price' => '500',
+          'start_date'     => '2021-04-14',
+          'status'         => 'accepted',
+          'total_price'    => '4700.00'
         }
       end
 
@@ -72,6 +72,10 @@ RSpec.describe Api::ReservationsController, type: :controller do
 
       it 'returns an error response' do
         expect(response).to have_http_status(:not_implemented)
+      end
+
+      it 'returns the errors message' do
+        expect(JSON.parse(response.body)).to eq({ 'message'=>'The payload can not be identified!' })
       end
     end
   end

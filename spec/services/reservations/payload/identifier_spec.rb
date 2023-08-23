@@ -32,7 +32,8 @@ RSpec.describe Reservations::Payload::Identifier, type: :service do
     it 'returns a failure result' do
       result = service.call(payload: payload)
       expect(result).to be_failure
-      expect(result.failure).to eq(:not_implemented)
+      expect(result.failure[:status]).to eq(:not_implemented)
+      expect(result.failure[:errors]).to eq('The payload can not be identified!')
     end
   end
 end

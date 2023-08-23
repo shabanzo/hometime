@@ -13,7 +13,10 @@ module Reservations
     if reservation.update(new_payload)
       Success(reservation.reload)
     else
-      Failure(:unprocessable_entity)
+      Failure(
+        errors: reservation.errors.full_messages.join(', '),
+        status:   :unprocessable_entity
+      )
     end
   end
 
@@ -23,7 +26,10 @@ module Reservations
     if reservation.save
       Success(reservation)
     else
-      Failure(:unprocessable_entity)
+      Failure(
+        errors: reservation.errors.full_messages.join(', '),
+        status: :unprocessable_entity
+      )
     end
   end
 end
