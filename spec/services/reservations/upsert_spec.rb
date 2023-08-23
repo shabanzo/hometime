@@ -95,8 +95,9 @@ RSpec.describe ::Reservations::Upsert, type: :service do
         end
       end
 
-      context 'when an exiting reservation is coming' do
-        let!(:reservation) { create(:reservation, code: 'YYY12345678', status: 'pending') }
+      context 'when an existing reservation is coming' do
+        let!(:guest) { create(:guest, email: 'wayne_woodbridge@bnb.com') }
+        let!(:reservation) { create(:reservation, code: 'YYY12345678', status: 'pending', guest: guest) }
 
         it 'does not create a new reservation' do
           expect { service.call(payload: payload) }.not_to change(Reservation, :count)
@@ -106,6 +107,13 @@ RSpec.describe ::Reservations::Upsert, type: :service do
           expect { service.call(payload: payload) }.to(change do
             reservation.reload
             reservation.status
+          end)
+        end
+
+        it 'updates the existing guest that reserved the unit' do
+          expect { service.call(payload: payload) }.to(change do
+            guest.reload
+            guest.first_name
           end)
         end
       end

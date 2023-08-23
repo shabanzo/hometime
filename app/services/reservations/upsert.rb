@@ -41,11 +41,25 @@ module Reservations
       end
     end
 
-    def create_or_update(reservation, new_payload)
+    def create_or_update(reservation, payload)
       if reservation.present?
-        update_reservation(reservation, new_payload)
+        nested_update(reservation, payload)
       else
-        create_reservation(new_payload)
+        create_reservation(payload)
+      end
+    end
+
+    def nested_update(reservation, payload)
+      update_inst = Update.new
+      update = update_inst.call(
+        reservation: reservation,
+        payload:     payload
+      )
+
+      if update.success?
+        Success(update.success)
+      else
+        Failure(update.failure)
       end
     end
   end

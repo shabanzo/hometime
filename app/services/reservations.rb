@@ -9,19 +9,19 @@ module Reservations
     Success(reservation)
   end
 
-  def update_reservation(reservation, new_payload)
-    if reservation.update(new_payload)
+  def update_reservation(reservation, payload)
+    if reservation.update(payload.except(:guest_attributes))
       Success(reservation.reload)
     else
       Failure(
         errors: reservation.errors.full_messages.join(', '),
-        status:   :unprocessable_entity
+        status: :unprocessable_entity
       )
     end
   end
 
-  def create_reservation(new_payload)
-    reservation = Reservation.new(new_payload)
+  def create_reservation(payload)
+    reservation = Reservation.new(payload)
 
     if reservation.save
       Success(reservation)
