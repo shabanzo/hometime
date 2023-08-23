@@ -57,7 +57,7 @@ API for upserting (updating or inserting) a reservation data with this requireme
 #### How to add a new channel?
 
 1. Add a new identifier on [::Reservations::Payload::Identifier](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/payload/identifier.rb)
-2. Create a new converter under [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter)
+2. Create a new converter under [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter) because it's using Factory Method (Design Pattern).
 
 #### Endpoint
 
