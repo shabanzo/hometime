@@ -11,8 +11,9 @@ This is a simple API application designed to handle reservation requests from va
 4. [API Documentation](https://github.com/shabanzo/hometime/blob/main/README.md#api-documentation)
     - [Reservation - Upsert API](https://github.com/shabanzo/hometime/blob/main/README.md#reservation-upsert-api)
 5. [Technical Documentation](https://github.com/shabanzo/hometime/blob/main/README.md#api-documentation)
-6. [How to Add A New Channel](https://github.com/shabanzo/hometime/tree/main#how-to-add-a-new-channel)
-7. [Additional Notes](https://github.com/shabanzo/hometime/tree/main#additional-notes)
+    - [ER Diagram](https://github.com/shabanzo/hometime/tree/main#er-diagram)
+    - [Additional Notes](https://github.com/shabanzo/hometime/tree/main#additional-notes)
+7. [How to Add A New Channel](https://github.com/shabanzo/hometime/tree/main#how-to-add-a-new-channel)
 
 ## Getting Started
 
@@ -93,7 +94,7 @@ POST /api/v1/reservations/upsert
 ```
 
 #### Payload example (Bookingcom):
-```
+```json
 {
   "reservation": {
     "code": "YYY12345678",
@@ -163,7 +164,7 @@ POST /api/v1/reservations/upsert
 
 ## Technical Documentation
 ### ER Diagram
-
+![ER Diagram](https://github.com/shabanzo/hometime/blob/main/public/Hometime%20-%20ER%20Diagram.png?raw=true)
 
 ### Additional Notes
 
