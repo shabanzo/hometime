@@ -10,8 +10,9 @@ This is a simple API application designed to handle reservation requests from va
 3. [Assumptions](https://github.com/shabanzo/hometime/blob/main/README.md#assumptions)
 4. [API Documentation](https://github.com/shabanzo/hometime/blob/main/README.md#api-documentation)
     - [Reservation - Upsert API](https://github.com/shabanzo/hometime/blob/main/README.md#reservation-upsert-api)
-5. [How to Add A New Channel](https://github.com/shabanzo/hometime/tree/main#how-to-add-a-new-channel)
-6. [Additional Notes](https://github.com/shabanzo/hometime/tree/main#additional-notes)
+5. [Technical Documentation](https://github.com/shabanzo/hometime/blob/main/README.md#api-documentation)
+6. [How to Add A New Channel](https://github.com/shabanzo/hometime/tree/main#how-to-add-a-new-channel)
+7. [Additional Notes](https://github.com/shabanzo/hometime/tree/main#additional-notes)
 
 ## Getting Started
 
@@ -160,12 +161,11 @@ POST /api/v1/reservations/upsert
 | 501        | The payload can't be identified                                           |
 | 422        | Unprocessable content - the details will be provided in the error message |
 
-## How to add a new channel?
+## Technical Documentation
+### ER Diagram
 
-1. Add a new identifier in [::Reservations::Payload::Identifier](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/payload/identifier.rb)
-2. Create a new converter under [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter)
 
-## Additional Notes
+### Additional Notes
 
 1. [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter) - [Here](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/upsert.rb#L31-L35) utilizing [Factory Method (Design Pattern)](https://refactoring.guru/design-patterns/factory-method)
     - [::Reservations::Payload::Converter::Airbnb](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter/airbnb) - Converts Airbnb payload to a standardized structure.
@@ -173,3 +173,8 @@ POST /api/v1/reservations/upsert
 2. [::Reservations::Update](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/update.rb) - Updates reservations and guests using Dry::Transactions. The transaction rolls back if any step fails, ensuring data consistency.
 3. Modules, for example: [::Reservations module](https://github.com/shabanzo/hometime/blob/main/app/services/reservations.rb) - Help organize common methods and namespace services based on their domain, such as Reservations.
 4. `Dry::Monads` for handling response properly.
+## How to add a new channel?
+
+1. Add a new identifier on [::Reservations::Payload::Identifier](https://github.com/shabanzo/hometime/blob/main/app/services/reservations/payload/identifier.rb)
+2. Create a new converter under [::Reservations::Payload::Converter](https://github.com/shabanzo/hometime/tree/main/app/services/reservations/payload/converter)
+
