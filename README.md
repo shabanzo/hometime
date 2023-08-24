@@ -141,11 +141,11 @@ POST /api/v1/reservations/upsert
   "guests": 4,
   "infants": 0,
   "nights": 4,
-  "payout_price": "4200.00",
-  "security_price": "500",
+  "payout_price": "4200.0",
+  "security_price": "500.0",
   "start_date": "2021-04-14",
   "status": "accepted",
-  "total_price": "4700.00"
+  "total_price": "4700.0"
 }
 ```
 
