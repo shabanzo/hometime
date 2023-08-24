@@ -13,7 +13,7 @@ This is a simple API application designed to handle reservation requests from va
 5. [Technical Documentation](https://github.com/shabanzo/hometime/blob/main/README.md#api-documentation)
     - [ER Diagram](https://github.com/shabanzo/hometime/tree/main#er-diagram)
     - [Additional Notes](https://github.com/shabanzo/hometime/tree/main#additional-notes)
-6. [How to Add A New Channel](https://github.com/shabanzo/hometime/tree/main#how-to-add-a-new-channel)
+    - [How to Add A New Channel](https://github.com/shabanzo/hometime/tree/main#how-to-add-a-new-channel)
 
 ## Getting Started
 
